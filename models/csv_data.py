@@ -13,7 +13,7 @@ class CSVData:
   csv_file_path: str
   emails: list[EmailData] = None
 
-  def parse_csv_data(self):
+  def generate_emails(self):
     self.emails = list()
     with open(self.csv_file_path, mode='r') as file:
       csv_reader = csv.reader(file)
@@ -25,8 +25,9 @@ class CSVData:
       try:
         for row in csv_reader:
           reciever_email = row[0]
+          data = row[1:]
           validation_utils.validate_email(reciever_email)
-          body = string_utils.replace_placeholders(body_template, row[1:])
+          body = string_utils.replace_placeholders(body_template, data)
           
           email = EmailData(reciever_email, subject, body)
           self.emails.append(email)
@@ -34,4 +35,7 @@ class CSVData:
       except Exception as e:
         log.error(e.args[0])
         sys.exit(1)
+
+  
+
 

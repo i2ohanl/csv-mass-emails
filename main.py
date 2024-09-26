@@ -13,7 +13,7 @@ log = log()
 def processCsvAndSendEmail(csv_path, test):
     server = smtp_server.ServerHandler()
     csv_data_handler = CSVData(csv_path)
-    csv_data_handler.parse_csv_data()
+    csv_data_handler.generate_emails()
     if test == False:
         executable = server.send_email
         server.start()

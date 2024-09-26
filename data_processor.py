@@ -7,7 +7,7 @@ from email_logging import log
 
 log = log()
 
-def parse_csv_data(csv_path):
+def generate_emails(csv_path):
   log.info("Proceeding to parse csv")
   result = dict()
   with open(csv_path, mode='r') as file:
