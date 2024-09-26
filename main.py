@@ -5,20 +5,22 @@ import models.smtp_server as smtp_server
 import data_processor
 import utils.email_utils as email_utils
 import utils.validation_utils as validation_utils
+from models.csv_data import CSVData
 from email_logging import log
 
 log = log()
 
 def processCsvAndSendEmail(csv_path, test):
     server = smtp_server.ServerHandler()
-    csv_data = data_processor.parse_csv_data(csv_path) 
+    csv_data_handler = CSVData(csv_path)
+    csv_data_handler.parse_csv_data()
     if test == False:
         executable = server.send_email
         server.start()
     else:
         log.info("Test config selected, printing all emails")
         executable = email_utils.print_email
-    data_processor.process_email_data(executable, server.get_email(), csv_data)
+    data_processor.handle_email_data(executable, csv_data_handler)
     server.quit_if_started()
 
 

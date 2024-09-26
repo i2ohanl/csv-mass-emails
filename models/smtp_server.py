@@ -44,6 +44,3 @@ class ServerHandler:
     if self._server:
       log.info("All emails sent successfully! Shutting down server")
       self._server.quit()
-
-  def get_email(self):
-    return self._sender_email

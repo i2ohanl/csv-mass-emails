@@ -34,13 +34,9 @@ def parse_csv_data(csv_path):
   log.info("Parsed csv, valid email data points found:", len(result["email_data"]))
   return result
 
-def process_email_data(func, sender_email, data):
-    subject = data["subject"]
-    log.info("Email subject:", subject)
-    for row_data in data["email_data"]:
-      reciever_email = row_data["reciever_email"]
-      body = row_data["body"]
-      email_msg = email_utils.generate_email(sender_email, subject, reciever_email, body)
+def handle_email_data(func, csv_data_handler):
+    for email in csv_data_handler.emails:
+      email_msg = email.generate_mime_email()
       func(email_msg)
       
 

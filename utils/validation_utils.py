@@ -6,7 +6,6 @@ def validate_email(email):
         raise Exception("Invalid email format: " + email)
 
 def validate_password(password):
-    print(password)
     password_regex = r'^([a-z0-9]{4} ){3}[a-z0-9]{4}$'
     if re.match(password_regex, password) == None:
         raise Exception("Invalid password format, recheck and try again")
