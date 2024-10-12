@@ -1,8 +1,6 @@
 import argparse
-import sys
 import logging as log
 import models.smtp_server as smtp_server
-import data_processor
 import utils.email_utils as email_utils
 import utils.validation_utils as validation_utils
 from models.csv_data import CSVData
@@ -20,9 +18,13 @@ def processCsvAndSendEmail(csv_path, test):
     else:
         log.info("Test config selected, printing all emails")
         executable = email_utils.print_email
-    data_processor.handle_email_data(executable, csv_data_handler)
+    handle_email_data(executable, csv_data_handler.emails)
     server.quit_if_started()
 
+def handle_email_data(func, emails):
+    for email in emails:
+      email_msg = email.generate_mime_email()
+      func(email_msg)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process a CSV file.")
@@ -36,5 +38,4 @@ if __name__ == "__main__":
       log.info("CSV path provided:", csv_path)
     except Exception as e:
       log.error(e.args[0])
-      sys.exit(1)
     processCsvAndSendEmail(csv_path, args.test)

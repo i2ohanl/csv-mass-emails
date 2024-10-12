@@ -1,5 +1,3 @@
-import re
-
 def replace_placeholders(template, replacements_list):
     result = template
     replacement_index = 0
@@ -17,9 +15,16 @@ def check_placeholder_count(body_template, data_points):
     if placeholders != data_points:
       raise Exception("Template data count mismatch, placeholders: "+str(placeholders)+" data: "+str(data_points))
 
-def replace_placeholder_rows(text, replacements):
+def replace_placeholder_in_string(text, replacements):
     for i, replacement in enumerate(replacements, start=1):
         placeholder = f"[{chr(65 + i)}]"
         text = text.replace(placeholder, replacement)
     return text
+
+def pop_pdf_from_list(file_list):
+    result = list()
+    for i, file in enumerate(file_list):
+        if file.lower().endswith('.pdf'):
+            result.append(file_list.pop(i))
+    return result, file_list
 

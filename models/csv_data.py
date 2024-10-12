@@ -25,16 +25,16 @@ class CSVData:
       try:
         for row in csv_reader:
           reciever_email = row[0]
-          data = row[1:]
           validation_utils.validate_email(reciever_email)
+          data = row[1:]
+          attachments, data = string_utils.pop_pdf_from_list(data)
           body = string_utils.replace_placeholders(body_template, data)
           
-          email = EmailData(reciever_email, subject, body)
+          email = EmailData(reciever_email, subject, body, attachments)
           self.emails.append(email)
         # TODO: Make option to skip invalid data
       except Exception as e:
         log.error(e.args[0])
-        sys.exit(1)
 
   
 

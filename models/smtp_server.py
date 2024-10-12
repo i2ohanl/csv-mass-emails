@@ -22,7 +22,6 @@ class ServerHandler:
       validation_utils.validate_password(password)
     except Exception as e:
       log.error(e.args[0])
-      sys.exit(1)
 
     self._sender_email = email
     self._sender_password = password
