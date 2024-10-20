@@ -26,7 +26,3 @@ class log:
     def error(self, *messages):
         print(self._prefix_string('error', *messages))
         sys.exit(1)
-
-    def email_sent(self, *messages):
-        print(self._prefix_string('email_sent', *messages))
-    

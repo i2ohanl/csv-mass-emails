@@ -1,5 +1,6 @@
 import argparse
 import logging as log
+from tqdm import tqdm
 import models.smtp_server as smtp_server
 import utils.email_utils as email_utils
 import utils.validation_utils as validation_utils
@@ -22,7 +23,7 @@ def processCsvAndSendEmail(csv_path, test):
     server.quit_if_started()
 
 def handle_email_data(func, emails):
-    for email in emails:
+    for email in tqdm(emails, disable=(func.__name__ == "print_email")):
       email_msg = email.generate_mime_email()
       func(email_msg)
 

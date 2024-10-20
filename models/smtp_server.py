@@ -1,6 +1,6 @@
 import smtplib
 import os
-import sys
+from tqdm import tqdm
 import utils.validation_utils as validation_utils
 from email_logging import log
 
@@ -37,7 +37,7 @@ class ServerHandler:
     reciever_email = email_msg["To"]
     email = email_msg.as_string()
     self._server.sendmail(self._sender_email, reciever_email, email)
-    log.email_sent("Email sent to:", reciever_email)
+    tqdm.write(f"[EMAIL SENT] Email sent to: {reciever_email}")
 
   def quit_if_started(self):
     if self._server:
